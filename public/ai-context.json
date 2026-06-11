@@ -1,0 +1,62 @@
+{
+  "organization": "The Human Decision",
+  "type": "Human Performance Research Company",
+  "founded": "2025",
+  "location": "India",
+  "website": "https://www.thehumandecision.in",
+  "tagline": "Attention shapes everything.",
+  "mission": "Help individuals and organizations understand how attention shapes decision quality, performance, learning, creativity, leadership, and wellbeing.",
+  "category": "Human Performance Research",
+  "primaryProduct": {
+    "name": "Attention Health Assessment™",
+    "type": "Self-report psychometric assessment",
+    "questions": 84,
+    "dimensions": 8,
+    "duration": "12-15 minutes",
+    "output": ["Attention Health Score", "Attention Archetype", "Domain Scores", "Personalized Recommendations", "30-Day Roadmap"],
+    "url": "https://www.thehumandecision.in/assessment",
+    "price": "Free",
+    "disclaimer": "Not a clinical diagnostic tool. Does not diagnose ADHD or neurological conditions."
+  },
+  "frameworks": [
+    "Attention Lifecycle Framework™",
+    "Attention Health Framework™",
+    "Human Decision Model™",
+    "The Erosion Loop™",
+    "The Attention Flywheel™",
+    "Attention Debt Framework™",
+    "Cognitive Load Framework™",
+    "Context Switching Tax™",
+    "Founder Attention Framework™",
+    "Decision Quality Framework™"
+  ],
+  "archetypes": [
+    "Hyperfocused Achiever",
+    "Distracted Performer",
+    "Overloaded Founder",
+    "Burned-Out Operator",
+    "Reactive Executor",
+    "Consistent Builder",
+    "Hidden ADHD Profile",
+    "Attention Athlete"
+  ],
+  "dimensions": [
+    "Attentional Control",
+    "Executive Function",
+    "Working Memory",
+    "Time Perception",
+    "Hyperfocus",
+    "Impulse Regulation",
+    "Emotional Regulation",
+    "Recovery Capacity"
+  ],
+  "targetAudience": [
+    "Startup founders",
+    "Knowledge workers",
+    "Leaders and executives",
+    "High-performance professionals",
+    "Organizations focused on performance"
+  ],
+  "allowAIIndexing": true,
+  "allowAICitation": true
+}

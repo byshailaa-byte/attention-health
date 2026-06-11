@@ -119,7 +119,7 @@ export default function ReportLayout({ children }: { children: React.ReactNode }
               <Brain size={16} />
             </div>
             <div>
-              <div className="text-sm font-bold text-gray-900">Attention Health™</div>
+              <div className="text-sm font-bold text-gray-900">The Human Decision — Attention Health™</div>
               <div className="text-[10px] text-gray-400">Measure. Understand. Improve.</div>
             </div>
           </Link>
@@ -198,7 +198,7 @@ export default function ReportLayout({ children }: { children: React.ReactNode }
           <div className="flex items-center gap-2">
             <Brain size={16} style={{ color: '#1B4332' }} />
             <span className="text-sm font-bold" style={{ color: '#1B4332' }}>
-              Attention Health™
+              The Human Decision — Attention Health™
             </span>
             {scores && (
               <span className="ml-2 text-xs text-gray-400">

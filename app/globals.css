@@ -4,6 +4,26 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Premium design system variables ── */
+:root {
+  --bg-primary: #0D0D0F;
+  --bg-secondary: #141416;
+  --bg-card: #1A1A1E;
+  --bg-card-hover: #1F1F24;
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --text-primary: #F8F8F8;
+  --text-secondary: rgba(248,248,248,0.55);
+  --text-tertiary: rgba(248,248,248,0.35);
+  --accent-blue: #4F8EF7;
+  --accent-blue-glow: rgba(79,142,247,0.12);
+  --accent-green: #34D399;
+  --accent-amber: #FBBF24;
+  --accent-red: #F87171;
+  --gradient-hero: radial-gradient(ellipse at 20% 50%, rgba(79,142,247,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(52,211,153,0.05) 0%, transparent 50%);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -132,11 +152,16 @@
   }
   body {
     @apply bg-background text-foreground;
+    background-color: #0D0D0F;
   }
   html {
     @apply font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4 {
+    font-feature-settings: "ss01", "cv01";
+    letter-spacing: -0.03em;
   }
 }
 
@@ -167,4 +192,20 @@
 /* Smooth scroll for report */
 .report-content {
   scroll-behavior: smooth;
+}
+
+/* Hero background network node animations */
+@keyframes node-pulse-kf {
+  0%, 100% { opacity: 0.6; r: 0.8; }
+  50% { opacity: 1; r: 1.2; }
+}
+@keyframes node-pulse-slow-kf {
+  0%, 100% { opacity: 0.35; r: 0.6; }
+  50% { opacity: 0.7; r: 1.0; }
+}
+.node-pulse {
+  animation: node-pulse-kf 2.4s ease-in-out infinite;
+}
+.node-pulse-slow {
+  animation: node-pulse-slow-kf 3.8s ease-in-out infinite;
 }
