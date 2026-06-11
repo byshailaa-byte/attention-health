@@ -164,7 +164,7 @@ export default function ReportLayout({ children }: { children: React.ReactNode }
             </div>
             <div className="text-[10px] text-gray-400 space-y-0.5">
               <div>📅 {assessmentDate}</div>
-              <div>📊 84 questions</div>
+              <div>📊 88 questions</div>
               {scores && (
                 <div>
                   🎯 Overall:{' '}

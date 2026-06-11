@@ -10,7 +10,7 @@
   "primaryProduct": {
     "name": "Attention Health Assessment™",
     "type": "Self-report psychometric assessment",
-    "questions": 84,
+    "questions": 88,
     "dimensions": 8,
     "duration": "12-15 minutes",
     "output": ["Attention Health Score", "Attention Archetype", "Domain Scores", "Personalized Recommendations", "30-Day Roadmap"],

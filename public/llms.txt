@@ -14,7 +14,7 @@ scarcest and most valuable cognitive resource.
 ## Our Products
 
 ### Attention Health Assessment™
-- 84 research-informed questions across 8 dimensions
+- 88 research-informed questions across 8 dimensions
 - Measures: Attentional Control, Executive Function, Working Memory,
   Time Perception, Hyperfocus, Impulse Regulation, Emotional Regulation,
   Recovery Capacity

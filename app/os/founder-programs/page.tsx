@@ -51,7 +51,7 @@ export default function FounderProgramsPage() {
         {[
           {
             title: 'Founder Attention Audit™',
-            desc: 'A rigorous individual assessment — 84 questions, full archetype profile, 8 domain scores, and a personalised 30-day roadmap. Followed by a 1:1 debrief session.',
+            desc: 'A rigorous individual assessment — 88 questions, full archetype profile, 8 domain scores, and a personalised 30-day roadmap. Followed by a 1:1 debrief session.',
             tag: 'Individual',
           },
           {

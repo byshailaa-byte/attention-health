@@ -565,7 +565,7 @@ function HeroSection() {
             transition={{ delay: 1.2, duration: 0.4 }}
             style={{ color: 'rgba(255,255,255,0.35)', fontSize: '13px' }}
           >
-            84 questions · 12–15 minutes · Instant personalized report
+            88 questions · 12–15 minutes · Instant personalized report
           </motion.p>
         </div>
 
@@ -831,20 +831,38 @@ function HiddenAttentionCrisis() {
                   boxShadow: '0 1px 1px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.06)',
                 }}
               >
-                <div
-                  style={{
-                    fontSize: 'clamp(48px, 5vw, 72px)',
-                    fontWeight: 800,
-                    letterSpacing: '-0.04em',
-                    lineHeight: 1,
-                    marginBottom: '10px',
-                    background: 'linear-gradient(135deg, #F8F8F8 0%, rgba(248,248,248,0.7) 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                  }}
-                >
-                  {stat.value}{stat.suffix}
+                <div style={{ marginBottom: '10px', lineHeight: 1 }}>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: 'clamp(44px, 4vw, 64px)',
+                      fontWeight: 800,
+                      letterSpacing: '-0.04em',
+                      lineHeight: 1,
+                      background: 'linear-gradient(135deg, #F8F8F8 0%, rgba(248,248,248,0.7) 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: 'clamp(18px, 2vw, 26px)',
+                      fontWeight: 700,
+                      letterSpacing: '-0.02em',
+                      lineHeight: 1.2,
+                      marginTop: '4px',
+                      background: 'linear-gradient(135deg, #F8F8F8 0%, rgba(248,248,248,0.7) 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {stat.suffix.trim()}
+                  </span>
                 </div>
                 <div
                   style={{
@@ -1187,7 +1205,7 @@ function AttentionHealthFramework() {
             Eight dimensions. One complete picture.
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', maxWidth: '500px', margin: '0 auto' }}>
-            Each dimension is measured independently across 84 research-informed questions.
+            Each dimension is measured independently across 88 research-informed questions.
           </p>
         </div>
 
@@ -1751,7 +1769,7 @@ function AssessmentPreview() {
             {[
               {
                 icon: <BookOpen size={16} />,
-                text: '84 research-informed questions across 8 dimensions',
+                text: '88 research-informed questions across 8 dimensions',
               },
               {
                 icon: <Users size={16} />,
@@ -2262,7 +2280,7 @@ const PRODUCT_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: 'Attention Health Assessment™',
-  description: '84 research-informed questions across 8 dimensions. Get your personalized Attention Health Score and Attention Archetype.',
+  description: '88 research-informed questions across 8 dimensions. Get your personalized Attention Health Score and Attention Archetype.',
   brand: { '@type': 'Brand', name: 'The Human Decision' },
   offers: {
     '@type': 'Offer',
@@ -2282,7 +2300,7 @@ const FAQ_SCHEMA = {
       name: 'What is the Attention Health Assessment?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'The Attention Health Assessment™ is an 84-question self-report instrument that measures attention functioning across 8 dimensions: Attentional Control, Executive Function, Working Memory, Time Perception, Hyperfocus, Impulse Regulation, Emotional Regulation, and Recovery Capacity. It generates a personalized Attention Health Score, Attention Archetype, and 30-day improvement roadmap.',
+        text: 'The Attention Health Assessment™ is an 88-question self-report instrument that measures attention functioning across 8 dimensions: Attentional Control, Executive Function, Working Memory, Time Perception, Hyperfocus, Impulse Regulation, Emotional Regulation, and Recovery Capacity. It generates a personalized Attention Health Score, Attention Archetype, and 30-day improvement roadmap.',
       },
     },
     {

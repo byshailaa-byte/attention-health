@@ -564,7 +564,7 @@ export default function ErosionLoopPage() {
               Identify where you are in the Erosion Loop
             </p>
             <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.55)', marginBottom: '28px', lineHeight: 1.6 }}>
-              The Attention Health Assessment™ maps your attentional profile across eight dimensions. 84 questions. 12–15 minutes. Instant report.
+              The Attention Health Assessment™ maps your attentional profile across eight dimensions. 88 questions. 12–15 minutes. Instant report.
             </p>
             <Link
               href="/assessment"
