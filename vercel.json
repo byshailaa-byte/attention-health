@@ -1,15 +1,1 @@
-{
-  "functions": {
-    "app/api/report/pdf/route.ts": {
-      "maxDuration": 30
-    },
-    "app/api/report/generate/route.ts": {
-      "maxDuration": 30
-    }
-  },
-  "env": {
-    "DATABASE_URL": "@database-url",
-    "OPENAI_API_KEY": "@openai-api-key",
-    "POSTHOG_KEY": "@posthog-key"
-  }
-}
+{}
