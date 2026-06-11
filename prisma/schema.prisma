@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Assessment {
+  id          String     @id @default(cuid())
+  sessionId   String     @unique
+  status      String     @default("in_progress")
+  startedAt   DateTime   @default(now())
+  completedAt DateTime?
+  responses   Response[]
+  scores      Score?
+  report      Report?
+  lead        Lead?
+}
+
+model Response {
+  id           String     @id @default(cuid())
+  assessmentId String
+  questionId   String
+  value        Int
+  assessment   Assessment @relation(fields: [assessmentId], references: [id])
+}
+
+model Score {
+  id                   String     @id @default(cuid())
+  assessmentId         String     @unique
+  attentionHealthScore Int
+  executivePerformance Int
+  attentionDebtIndex   Int
+  burnoutLoad          Int
+  adhdRiskIndicator    Int
+  attentionControl     Int
+  executiveFunction    Int
+  workingMemory        Int
+  timeBlindness        Int
+  hyperfocus           Int
+  impulsivity          Int
+  emotionalRegulation  Int
+  functionalImpairment Int
+  childhoodIndicators  Int
+  sleepRecovery        Int
+  digitalEnvironment   Int
+  archetype            String
+  confidenceRating     Float
+  consistencyScore     Float
+  assessment           Assessment @relation(fields: [assessmentId], references: [id])
+}
+
+model Lead {
+  id           String     @id @default(cuid())
+  assessmentId String     @unique
+  name         String
+  email        String
+  age          Int
+  gender       String
+  occupation   String
+  industry     String
+  founderType  String
+  yearsExp     Int
+  companySize  String
+  workMode     String
+  createdAt    DateTime   @default(now())
+  assessment   Assessment @relation(fields: [assessmentId], references: [id])
+}
+
+model Report {
+  id              String     @id @default(cuid())
+  assessmentId    String     @unique
+  insights        Json
+  recommendations Json
+  nextSteps       Json
+  aiNarrative     String     @db.Text
+  createdAt       DateTime   @default(now())
+  assessment      Assessment @relation(fields: [assessmentId], references: [id])
+}
