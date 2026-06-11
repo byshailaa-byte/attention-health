@@ -194,6 +194,64 @@
   scroll-behavior: smooth;
 }
 
+/* ── Stat counter fade-in animation (Bug 1) ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stat-card:nth-child(1) { animation: fadeInUp 0.5s ease 0.1s both; }
+.stat-card:nth-child(2) { animation: fadeInUp 0.5s ease 0.2s both; }
+.stat-card:nth-child(3) { animation: fadeInUp 0.5s ease 0.3s both; }
+.stat-card:nth-child(4) { animation: fadeInUp 0.5s ease 0.4s both; }
+
+/* ── Human Decision Model desktop layout (Bug 7) ── */
+.hdm-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+@media (min-width: 1024px) {
+  .hdm-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+.hdm-node {
+  flex: 1;
+  max-width: 240px;
+}
+.hdm-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(79,142,247,0.5);
+  font-size: 22px;
+  flex-shrink: 0;
+  padding: 4px 8px;
+  line-height: 1;
+}
+@media (max-width: 1023px) {
+  .hdm-arrow { transform: rotate(90deg); padding: 6px 0; }
+  .hdm-node  { max-width: 100%; }
+}
+
+/* ── Circular loop diagram container (Bug 8) ── */
+.loop-diagram-container {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  overflow: visible;
+}
+@media (min-width: 1024px) {
+  .loop-diagram-container { max-width: 640px; }
+}
+
 /* Hero background network node animations */
 @keyframes node-pulse-kf {
   0%, 100% { opacity: 0.6; r: 0.8; }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, Fragment } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
@@ -122,26 +122,6 @@ function AttentionNetworkBg() {
   )
 }
 
-function CountUp({ target, duration = 1800 }: { target: number; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true })
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!isInView) return
-    const startTime = performance.now()
-    const tick = (now: number) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.round(eased * target))
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [isInView, target, duration])
-
-  return <span ref={ref}>{count}</span>
-}
 
 function ScoreRing({ score }: { score: number }) {
   const r = 44
@@ -420,8 +400,6 @@ function ArchetypeCarousel() {
 
 // ─── HERO ────────────────────────────────────────────────────────────────────
 function HeroSection() {
-  const headline = 'Better Human Performance Starts With Better Attention.'
-  const words = headline.split(' ')
 
   return (
     <section
@@ -486,7 +464,10 @@ function HeroSection() {
             Human Performance Research
           </motion.p>
 
-          <h1
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1, duration: 0.6, ease: 'easeOut' }}
             style={{
               color: 'white',
               fontSize: 'clamp(38px, 5.5vw, 76px)',
@@ -496,18 +477,8 @@ function HeroSection() {
               marginBottom: '24px',
             }}
           >
-            {words.map((word, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.06, duration: 0.35, ease: 'easeOut' }}
-                style={{ display: 'inline-block', marginRight: '0.25em' }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </h1>
+            Better Human Performance Starts With Better Attention.
+          </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -663,11 +634,7 @@ function HumanDecisionModel() {
       }}
     >
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+        <p
           style={{
             color: '#4F8EF7',
             fontSize: '11px',
@@ -685,12 +652,8 @@ function HumanDecisionModel() {
           }}
         >
           The Human Decision Model™
-        </motion.p>
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.1 }}
+        </p>
+        <h2
           style={{
             color: 'white',
             fontSize: 'clamp(28px, 4vw, 48px)',
@@ -700,138 +663,58 @@ function HumanDecisionModel() {
           }}
         >
           How attention becomes outcomes.
-        </motion.h2>
+        </h2>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0',
-          }}
-        >
+        <div className="hdm-container">
           {steps.map((step, i) => (
-            <div
-              key={step.id}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
-            >
+            <Fragment key={step.id}>
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.12 }}
+                className="hdm-node"
                 style={{
                   backgroundColor: step.bg,
                   border: `1px solid ${step.border}`,
                   borderRadius: '12px',
-                  padding: '20px 32px',
-                  width: '100%',
-                  maxWidth: '380px',
+                  padding: '20px 24px',
                   display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+                  flexDirection: 'column',
+                  gap: '10px',
                   cursor: 'default',
                   transition: 'all 0.2s',
-                  position: 'relative',
                 }}
                 whileHover={{ scale: 1.02 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <div style={{ color: step.color }}>{step.icon}</div>
-                  <span
-                    style={{
-                      color: step.color,
-                      fontWeight: 700,
-                      fontSize: '15px',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
+                  <span style={{ color: step.color, fontWeight: 700, fontSize: '14px', letterSpacing: '0.05em' }}>
                     {step.label}
                   </span>
                 </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
                   {step.points.map((pt) => (
-                    <div
+                    <span
                       key={pt}
                       style={{
-                        color: 'rgba(255,255,255,0.4)',
-                        fontSize: '11px',
-                        display: 'none',
+                        backgroundColor: 'rgba(255,255,255,0.05)',
+                        color: 'rgba(255,255,255,0.45)',
+                        fontSize: '10px',
+                        padding: '3px 7px',
+                        borderRadius: '4px',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {pt}
-                    </div>
+                    </span>
                   ))}
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: '6px',
-                      flexWrap: 'wrap',
-                      justifyContent: 'flex-end',
-                      maxWidth: '180px',
-                    }}
-                  >
-                    {step.points.map((pt) => (
-                      <span
-                        key={pt}
-                        style={{
-                          backgroundColor: 'rgba(255,255,255,0.05)',
-                          color: 'rgba(255,255,255,0.45)',
-                          fontSize: '11px',
-                          padding: '3px 8px',
-                          borderRadius: '4px',
-                          whiteSpace: 'nowrap',
-                        }}
-                      >
-                        {pt}
-                      </span>
-                    ))}
-                  </div>
                 </div>
               </motion.div>
-
               {i < steps.length - 1 && (
-                <motion.div
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  whileInView={{ opacity: 1, scaleY: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.12 + 0.3 }}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    margin: '6px 0',
-                    transformOrigin: 'top',
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '1px',
-                      height: '24px',
-                      background:
-                        'linear-gradient(to bottom, rgba(59,130,246,0.5), rgba(59,130,246,0.1))',
-                    }}
-                  />
-                  <div
-                    style={{
-                      width: 0,
-                      height: 0,
-                      borderLeft: '5px solid transparent',
-                      borderRight: '5px solid transparent',
-                      borderTop: '6px solid rgba(59,130,246,0.4)',
-                    }}
-                  />
-                </motion.div>
+                <div className="hdm-arrow">→</div>
               )}
-            </div>
+            </Fragment>
           ))}
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.6 }}
+        <p
           style={{
             color: 'rgba(255,255,255,0.5)',
             fontSize: '16px',
@@ -842,7 +725,7 @@ function HumanDecisionModel() {
         >
           Every decision you make is downstream of your attention. Improve the quality
           of attention, and you improve the quality of everything else.
-        </motion.p>
+        </p>
       </div>
     </section>
   )
@@ -890,13 +773,7 @@ function HiddenAttentionCrisis() {
       }}
     >
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          style={{ textAlign: 'center', marginBottom: '72px' }}
-        >
+        <div style={{ textAlign: 'center', marginBottom: '72px' }}>
           <p
             style={{
               color: '#F87171',
@@ -928,7 +805,7 @@ function HiddenAttentionCrisis() {
           >
             The modern workplace is systematically destroying attention.
           </h2>
-        </motion.div>
+        </div>
 
         {/* Stats */}
         <div
@@ -942,12 +819,9 @@ function HiddenAttentionCrisis() {
           {stats.map((stat, i) => {
             const topColors = ['#4F8EF7', '#F87171', '#FBBF24', '#34D399']
             return (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                className="stat-card"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
                   border: '1px solid rgba(255,255,255,0.08)',
@@ -970,8 +844,7 @@ function HiddenAttentionCrisis() {
                     backgroundClip: 'text',
                   }}
                 >
-                  <CountUp target={stat.value} />
-                  {stat.suffix}
+                  {stat.value}{stat.suffix}
                 </div>
                 <div
                   style={{
@@ -992,17 +865,13 @@ function HiddenAttentionCrisis() {
                 >
                   — {stat.source}
                 </div>
-              </motion.div>
+              </div>
             )
           })}
         </div>
 
         {/* Attention fragmentation visualization */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+        <div
           style={{
             backgroundColor: 'rgba(255,255,255,0.02)',
             border: '1px solid rgba(255,255,255,0.07)',
@@ -1075,7 +944,7 @@ function HiddenAttentionCrisis() {
               Deep Work — Uninterrupted Focus
             </span>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
@@ -1119,13 +988,7 @@ function AttentionLifecycle() {
   return (
     <section style={{ backgroundColor: '#0D0D0F', padding: '120px 24px' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          style={{ textAlign: 'center', marginBottom: '72px' }}
-        >
+        <div style={{ textAlign: 'center', marginBottom: '72px' }}>
           <p
             style={{
               color: '#4F8EF7',
@@ -1154,7 +1017,7 @@ function AttentionLifecycle() {
           >
             Attention is not a switch. It&apos;s a cycle.
           </h2>
-        </motion.div>
+        </div>
 
         <div
           style={{
@@ -1169,11 +1032,7 @@ function AttentionLifecycle() {
               key={stage.label}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
             >
-              <motion.div
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+              <div
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.03)',
                   border: `1px solid ${stage.color}33`,
@@ -1230,19 +1089,14 @@ function AttentionLifecycle() {
                     opacity: 0.6,
                   }}
                 />
-              </motion.div>
+              </div>
 
               {i < stages.length - 1 ? (
-                <motion.div
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  whileInView={{ opacity: 1, scaleY: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.25, delay: i * 0.1 + 0.25 }}
+                <div
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    transformOrigin: 'top',
                     margin: '3px 0',
                   }}
                 >
@@ -1262,13 +1116,9 @@ function AttentionLifecycle() {
                       borderTop: '5px solid rgba(255,255,255,0.15)',
                     }}
                   />
-                </motion.div>
+                </div>
               ) : (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.7 }}
+                <div
                   style={{
                     marginTop: '12px',
                     display: 'flex',
@@ -1280,7 +1130,7 @@ function AttentionLifecycle() {
                 >
                   <RefreshCw size={14} />
                   <span>cycles back to Inputs</span>
-                </motion.div>
+                </div>
               )}
             </div>
           ))}
@@ -1306,13 +1156,7 @@ function AttentionHealthFramework() {
   return (
     <section style={{ backgroundColor: '#141416', padding: '120px 24px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          style={{ textAlign: 'center', marginBottom: '64px' }}
-        >
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <p
             style={{
               color: '#4F8EF7',
@@ -1345,7 +1189,7 @@ function AttentionHealthFramework() {
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', maxWidth: '500px', margin: '0 auto' }}>
             Each dimension is measured independently across 84 research-informed questions.
           </p>
-        </motion.div>
+        </div>
 
         <div
           style={{
@@ -1358,10 +1202,6 @@ function AttentionHealthFramework() {
           {domains.map((domain, i) => (
             <motion.div
               key={domain.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: (i % 4) * 0.07 }}
               style={{
                 backgroundColor: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
@@ -1490,7 +1330,7 @@ function CircularLoop({
 
   return (
     // overflow: visible so nodes at edges are never clipped
-    <div style={{ position: 'relative', width: '100%', maxWidth: '520px', margin: '0 auto', overflow: 'visible' }}>
+    <div className="loop-diagram-container">
       {/* SVG for connecting lines — scales to container width */}
       <svg
         viewBox="0 0 600 600"
@@ -1526,12 +1366,8 @@ function CircularLoop({
 
       {/* Node overlays — percentage positions mirror the 600×600 SVG space */}
       {positions.map((pos, i) => (
-        <motion.div
+        <div
           key={items[i].label}
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35, delay: animDelay + i * 0.1 }}
           style={{
             position: 'absolute',
             left: `${(pos.x / 600) * 100}%`,
@@ -1545,6 +1381,7 @@ function CircularLoop({
             width: '84px',
             pointerEvents: 'none',
           }}
+          aria-hidden="true"
         >
           <div
             style={{
@@ -1573,7 +1410,7 @@ function CircularLoop({
           >
             {items[i].label}
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   )
@@ -1690,12 +1527,7 @@ function ErosionLoop() {
   return (
     <section style={{ backgroundColor: '#0D0D0F', padding: '120px 24px' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
+        <div>
           <p
             style={{
               color: '#F87171',
@@ -1725,7 +1557,7 @@ function ErosionLoop() {
           >
             How modern environments destroy performance.
           </h2>
-        </motion.div>
+        </div>
 
         <div className="hidden md:block">
           <CircularLoop items={items} centerLabel="The Performance Drain" animDelay={0.2} />
@@ -1733,11 +1565,7 @@ function ErosionLoop() {
 
         <LoopAccordion items={items} />
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.6 }}
+        <p
           style={{
             color: 'rgba(255,255,255,0.5)',
             fontSize: '16px',
@@ -1749,7 +1577,7 @@ function ErosionLoop() {
         >
           Most interventions treat the symptoms. We measure and address the root cause:{' '}
           <span style={{ color: 'white', fontWeight: 600 }}>attention.</span>
-        </motion.p>
+        </p>
       </div>
     </section>
   )
@@ -1793,12 +1621,7 @@ function AttentionFlywheel() {
   return (
     <section style={{ backgroundColor: '#141416', padding: '120px 24px' }}>
       <div style={{ maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-        >
+        <div>
           <p
             style={{
               color: '#4F8EF7',
@@ -1828,7 +1651,7 @@ function AttentionFlywheel() {
           >
             What becomes possible when attention is restored.
           </h2>
-        </motion.div>
+        </div>
 
         <div className="hidden md:block">
           <CircularLoop items={items} centerLabel="The Performance Compound" animDelay={0.2} />
@@ -1836,13 +1659,7 @@ function AttentionFlywheel() {
 
         <LoopAccordion items={items} />
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.6 }}
-          style={{ marginTop: '48px' }}
-        >
+        <div style={{ marginTop: '48px' }}>
           <p
             style={{
               color: 'rgba(255,255,255,0.55)',
@@ -1882,7 +1699,7 @@ function AttentionFlywheel() {
           >
             Discover Your Attention Profile <ArrowRight size={16} />
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
@@ -1904,12 +1721,7 @@ function AssessmentPreview() {
         className="grid-cols-1 lg:grid-cols-2"
       >
         {/* Left */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div>
           <p
             style={{
               color: '#3B82F6',
@@ -2003,19 +1815,15 @@ function AssessmentPreview() {
           <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '13px' }}>
             12–15 minutes · Instant report · 100% private
           </p>
-        </motion.div>
+        </div>
 
         {/* Right: Auto-scrolling archetype carousel */}
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
+        <div
           className="hidden lg:flex"
           style={{ justifyContent: 'center', alignItems: 'center' }}
         >
           <ArchetypeCarousel />
-        </motion.div>
+        </div>
       </div>
     </section>
   )
@@ -2071,13 +1879,7 @@ function HumanDecisionLab() {
   return (
     <section style={{ backgroundColor: '#141416', padding: '120px 24px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          style={{ textAlign: 'center', marginBottom: '64px' }}
-        >
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <p
             style={{
               color: '#4F8EF7',
@@ -2110,7 +1912,7 @@ function HumanDecisionLab() {
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', maxWidth: '500px', margin: '0 auto' }}>
             An open library of thinking on how attention shapes human potential.
           </p>
-        </motion.div>
+        </div>
 
         <div
           style={{
@@ -2120,13 +1922,7 @@ function HumanDecisionLab() {
           }}
         >
           {cards.map((card, i) => (
-            <motion.div
-              key={card.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: (i % 3) * 0.08 }}
-            >
+            <div key={card.title}>
               <Link
                 href={card.coming ? '#' : card.href}
                 style={{
@@ -2208,7 +2004,7 @@ function HumanDecisionLab() {
                   </div>
                 )}
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -2259,13 +2055,7 @@ function AttentionOS() {
   return (
     <section style={{ backgroundColor: '#0D0D0F', padding: '120px 24px' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          style={{ textAlign: 'center', marginBottom: '64px' }}
-        >
+        <div style={{ textAlign: 'center', marginBottom: '64px' }}>
           <p
             style={{
               color: '#4F8EF7',
@@ -2295,7 +2085,7 @@ function AttentionOS() {
           >
             For teams and organizations serious about performance.
           </h2>
-        </motion.div>
+        </div>
 
         <div
           style={{
@@ -2306,12 +2096,8 @@ function AttentionOS() {
           }}
         >
           {programs.map((program, i) => (
-            <motion.div
+            <div
               key={program.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.08 }}
               style={{
                 background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
                 border: '1px solid rgba(255,255,255,0.08)',
@@ -2350,16 +2136,12 @@ function AttentionOS() {
               <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px', lineHeight: 1.5 }}>
                 {program.desc}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Waitlist */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+        <div
           style={{
             backgroundColor: 'rgba(59,130,246,0.06)',
             border: '1px solid rgba(59,130,246,0.2)',
@@ -2447,7 +2229,7 @@ function AttentionOS() {
               )}
             </>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   )
